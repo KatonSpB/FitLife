@@ -5,16 +5,16 @@ user_name = input("Здравствуйте! На связи умный трек
 print("\n" + user_name + ", рады вас приветствовать!")
 
 # Зададим минимальные значения для возраста, веса и роста
-min_age = 0
-min_weight = 0
-min_height = 0
+MIN_AGE = 0
+MIN_WEIGHT = 0
+MIN_HEIGHT = 0
 
 # Запрашиваем у пользователя возраст, приводим к типу int.
 # Проверяем на корректность вода - отрицательные значения, ноль и текст
 while True:
     try:
         user_age = int(input("\nСколько вам лет? "))
-        if user_age <= min_age:
+        if user_age <= MIN_AGE:
             print("Возраст не может быть отрицательным или равным нулю."
                   " Попробуйте ещё раз\n")
             continue
@@ -27,7 +27,7 @@ while True:
 while True:
     try:
         user_weight = float(input("\nКакой у вас вес (кг)? "))
-        if user_weight <= min_weight:
+        if user_weight <= MIN_WEIGHT:
             print("Вес не может быть отрицательным или равным нулю."
                   " Попробуйте ещё раз\n")
             continue
@@ -43,7 +43,7 @@ while True:
     try:
         user_height = float(input("\nКакой у вас рост (м)? "
                                   "/используете точку в вместо запятой/ "))
-        if user_height <= min_height:
+        if user_height <= MIN_HEIGHT:
             print("Рост не может быть отрицательным или равным нулю."
                   " Попробуйте ещё раз\n")
             continue
@@ -58,22 +58,30 @@ bmi = user_weight / user_height ** 2
 
 # Зададим переменные нормы воды от веса в день в мл и кол-ва мл в л
 
-water_per_kg = 30
-ml_to_l = 1 / 1000
+WATER_PER_KG = 30
+ML_TO_L = 1 / 1000
 
 # Рассчитываем необходимый объем воды в мл
-water_ml = user_weight * water_per_kg
+water_ml = user_weight * WATER_PER_KG
 
 # Переводим объем воды из мл в л
-water_l = water_ml * ml_to_l
+water_l = water_ml * ML_TO_L
 
 # Для корректности вывода результата определим сокращение "год/года" или "лет"
 # в зависимости от возраста пользователя.
 # Вычислим последнюю цифру введенного числа с помощью остатка от деления на 10.
+RULE_TEEN_MIN = 11
+RULE_TEEN_MAX = 19
+RULE_LAST_DIGIT_LIMIT = 5
+RULE_LAST_DIGIT_NULL = 0
+RULE_DIVISION_BY = 10
 age_abb = "г."
-if 11 <= user_age <= 19:
+if RULE_TEEN_MIN <= user_age <= RULE_TEEN_MAX:
     age_abb = "л."
-elif user_age % 10 >= 5 or user_age % 10 == 0:
+elif (
+    user_age % RULE_DIVISION_BY >= RULE_LAST_DIGIT_LIMIT
+    or user_age % RULE_DIVISION_BY == RULE_LAST_DIGIT_NULL
+):
     age_abb = "л."
 
 # Отступим строку, проведем линию, отступим ещё одну строку
